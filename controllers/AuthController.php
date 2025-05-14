@@ -18,8 +18,6 @@ class AuthController {
                 $_SESSION['user_id'] = $user['id'];
                 header('Location: index.php?action=dashboard');
                 exit;
-            } else {
-                $error = "Usuário ou senha inválidos.";
             }
         }
         require 'views/auth/login.php';
@@ -33,8 +31,6 @@ class AuthController {
             if ($this->userModel->create($username, $password)) {
                 header('Location: index.php?action=login');
                 exit;
-            } else {
-                $error = "Erro ao cadastrar.";
             }
         }
         require 'views/auth/register.php';
