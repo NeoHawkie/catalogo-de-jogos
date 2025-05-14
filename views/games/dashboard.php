@@ -13,6 +13,10 @@
     <?php foreach ($games as $game): ?>
         <div class="bg-white p-4 shadow rounded">
             <h2 class="text-xl font-bold"><?php echo htmlspecialchars($game['title']); ?></h2>
+            <p class="w-[240px] h-[360px] overflow-hidden">
+                <img src="uploads\gameCovers\<?= $game['cover']; ?>" alt="<?= $game['cover']; ?>"
+                    class="w-full h-full object-cover">
+            </p>
             <p class="text-gray-600"><?php echo htmlspecialchars($game['platform']); ?></p>
             <p class="text-gray-500 text-sm mt-2"><?php echo nl2br(htmlspecialchars($game['description'])); ?></p>
             <a href="index?action=delete_game&id=<?php echo $game['id']; ?>" class="block text-red-600 mt-2">Excluir</a>

@@ -26,10 +26,10 @@ class Game
         return $stmt->fetchAll();
     }
 
-    public function create($user_id, $title, $platform, $exe_path, $description)
+    public function create($user_id, $title, $cover, $platform, $exe_path, $description)
     {
-        $stmt = $this->db->prepare("INSERT INTO games (user_id, title, platform, exe_path, description) VALUES (?, ?, ?, ?, ?)");
-        return $stmt->execute([$user_id, $title, $platform, $exe_path, $description]);
+        $stmt = $this->db->prepare("INSERT INTO games (user_id, title, cover, platform, exe_path, description) VALUES (?, ?, ?, ?, ?, ?)");
+        return $stmt->execute([$user_id, $title, $cover, $platform, $exe_path, $description]);
     }
 
     public function delete($id, $user_id)
