@@ -15,6 +15,13 @@ class Game
         return $stmt->fetchAll();
     }
 
+    public function getGameById($game_id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM games WHERE id = ?");
+        $stmt->execute([$game_id]);
+        return $stmt->fetch();
+    }
+
     public function searchByTitleOrPlatform($user_id, $searchGame)
     {
         $stmt = $this->db->prepare("SELECT * FROM games
@@ -32,6 +39,10 @@ class Game
         return $stmt->execute([$user_id, $title, $cover, $platform, $exe_path, $description]);
     }
 
+    public function update($updates = [], $params = [], $game) {
+
+    }
+    
     public function delete($id, $user_id)
     {
         $stmt = $this->db->prepare("DELETE FROM games WHERE id = ? AND user_id = ?");

@@ -9,7 +9,7 @@
     </div>
     <input type="text" name="platform" placeholder="Plataforma" class="border p-2 w-full" required>
     <input type="text" name="exe_path" placeholder="Caminho do Executável" class="border p-2 w-full">
-    <textarea name="description" placeholder="Descrição" class="border p-2 w-full" required></textarea>
+    <textarea name="description" placeholder="Descrição" class="border p-2 w-full"></textarea>
     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Adicionar</button>
 </form>
 <?php include 'views/templates/footer.php'; ?>

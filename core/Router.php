@@ -4,7 +4,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-function dd(...$dump){
+function dd(...$dump)
+{
     echo '<pre>';
     var_dump($dump);
     echo '</pre>';
@@ -14,8 +15,10 @@ function dd(...$dump){
 
 //$rout = str_replace('/', '', parse_url($_SERVER['REQUEST_URI'])['path']);
 
-class Router {
-    public static function route() {
+class Router
+{
+    public static function route()
+    {
         $pdo = Database::connect();
         $action = $_GET['action'] ?? 'login';
 
@@ -42,6 +45,11 @@ class Router {
                 require_once 'controllers/GameController.php';
                 (new GameController($pdo))->addGame();
                 break;
+            case 'edit_game':
+                require_once 'protected.php';
+                require_once 'controllers/GameController.php';
+                (new GameController($pdo))->editGame();
+                break;
             case 'delete_game':
                 require_once 'protected.php';
                 require_once 'controllers/GameController.php';
@@ -52,4 +60,3 @@ class Router {
         }
     }
 }
-?>
