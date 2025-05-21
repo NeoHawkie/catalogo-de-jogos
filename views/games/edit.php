@@ -2,11 +2,12 @@
 
 
 ?>
-<h1 class="text-2xl mb-4">Editar Jogo</h1>
+<h1 class="text-2xl mb-4">Editar dados do jogo</h1>
 <form method="POST" action="index.php?action=edit_game" class="space-y-4" enctype="multipart/form-data">
+    <input hidden type="text" name="id" value="<?=$_GET['id'];?>">
     <input type="text" name="title" placeholder="Título" class="border p-2 w-full" value="<?= htmlspecialchars($game['title']) ?>" required>
     <div class="border p-2 bg-white text-gray-400">
-        <label for="cover">Capa do jogo</label>
+        <label for="cover">Capa</label>
         <input type="file" name="cover">
     </div>
     <input type="text" name="platform" value="<?= htmlspecialchars($game['platform']) ?>" placeholder="Plataforma" class="border p-2 w-full" required>

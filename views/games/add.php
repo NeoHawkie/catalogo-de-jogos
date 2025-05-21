@@ -4,7 +4,7 @@
 <form method="POST" action="index.php?action=add_game" class="space-y-4" enctype="multipart/form-data">
     <input type="text" name="title" placeholder="Título" class="border p-2 w-full" required>
     <div class="border p-2 bg-white text-gray-400">
-        <label for="cover">Capa do jogo</label>
+        <label for="cover">Capa</label>
         <input type="file" name="cover">
     </div>
     <input type="text" name="platform" placeholder="Plataforma" class="border p-2 w-full" required>

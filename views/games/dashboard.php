@@ -19,7 +19,7 @@
             </p>
             <p class="text-gray-600"><?php echo htmlspecialchars($game['platform']); ?></p>
             <p class="text-gray-500 text-sm mt-2"><?php echo nl2br(htmlspecialchars($game['description'])); ?></p>
-            <div>
+            <div class="flex justify-between">
                 <a href="index?action=edit_game&id=<?= $game['id']; ?>" class="block text-blue-600 mt-2">Editar</a>
                 <a href="index?action=delete_game&id=<?= $game['id']; ?>" class="block text-red-600 mt-2">Excluir</a>
             </div>

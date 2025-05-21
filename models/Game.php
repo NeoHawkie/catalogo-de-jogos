@@ -39,8 +39,11 @@ class Game
         return $stmt->execute([$user_id, $title, $cover, $platform, $exe_path, $description]);
     }
 
-    public function update($updates = [], $params = [], $game) {
-
+    public function update($updates, $params, $game) {
+        
+        $params[':id'] = $game['id'];
+        $stmt = $this->db->prepare('UPDATE games SET ' . implode(', ', $updates) . ' WHERE id = :id');
+        return $stmt->execute($params);
     }
     
     public function delete($id, $user_id)
