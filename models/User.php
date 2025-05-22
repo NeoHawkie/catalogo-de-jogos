@@ -12,10 +12,16 @@ class User {
         return $stmt->fetch();
     }
 
-    public function create($username, $password) {
+    public function findByEmail($email) {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        return $stmt->fetch();
+    }
+
+    public function create($username, $name, $email, $password) {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->db->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-        return $stmt->execute([$username, $hash]);
+        $stmt = $this->db->prepare("INSERT INTO users (username, name, email, password) VALUES (?, ?, ?, ?)");
+        return $stmt->execute([$username, $name, $email, $hash]);
     }
 }
 ?>

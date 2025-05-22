@@ -1,14 +1,16 @@
 <?php //include 'views/templates/header.php'; 
 ?>
+
+<h1 class="mb-2 text-2xl">Meus Jogos</h1>
+
 <div class="flex justify-between items-center mb-2">
-    <h1 class="text-2xl">Meus Jogos</h1>
+    <form action="index.php" method="GET" class="flex mb-2 py-2">
+        <input type="hidden" name="action" value="dashboard">
+        <input type="text" name="searchGame" placeholder="Pesquisar...">
+        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Go!</button>
+    </form>
     <a href="dashboard.php?action=add_game" class="bg-green-500 text-white px-4 py-2 rounded">Adicionar Jogo</a>
 </div>
-<form action="index.php" method="GET" class="flex mb-2 py-2">
-    <input type="hidden" name="action" value="dashboard">
-    <input type="text" name="searchGame" placeholder="Pesquisar...">
-    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Go!</button>
-</form>
 <div class="grid grid-cols-3 md:grid-cols-4 gap-4">
     <?php foreach ($games as $game): ?>
         <div class="bg-white p-4 shadow rounded">
