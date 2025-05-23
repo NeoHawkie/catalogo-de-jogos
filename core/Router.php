@@ -35,6 +35,11 @@ class Router
                 require_once 'controllers/AuthController.php';
                 (new AuthController($pdo))->logout();
                 break;
+            case 'perfil':
+                require_once 'protected.php';
+                require_once 'controllers/AuthController.php';
+                (new AuthController($pdo))->getProfile();
+                break;
             case 'dashboard':
                 require_once 'protected.php';
                 require_once 'controllers/GameController.php';

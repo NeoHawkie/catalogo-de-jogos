@@ -15,7 +15,7 @@
                     <?php endif; ?>>Players' Lounge</a></div>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="flex justify-between">
-                    <a href="index.php?action=" class="block hover:underline pl-2 pr-2">Meu Perfil</a>
+                    <a href="index.php?action=perfil&user=<?=$_SESSION['username'];?>" class="block hover:underline pl-2 pr-2">Meu Perfil</a>
                     <a href="index.php?action=logout" class="block hover:underline pl-2 pr-2">Logout</a>
                 </div>  
             <?php endif; ?>

@@ -1,6 +1,3 @@
-<?php //include 'views/templates/header.php'; 
-?>
-
 <h1 class="mb-2 text-2xl">Meus Jogos</h1>
 
 <div class="flex justify-between items-center mb-2">
@@ -11,9 +8,9 @@
     </form>
     <a href="dashboard.php?action=add_game" class="bg-green-500 text-white px-4 py-2 rounded">Adicionar Jogo</a>
 </div>
-<div class="grid grid-cols-3 md:grid-cols-4 gap-4">
+<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 "> 
     <?php foreach ($games as $game): ?>
-        <div class="bg-white p-4 shadow rounded">
+        <div class="justify-self-center bg-white w-[275px] p-4 shadow rounded">
             <h2 class="text-xl font-bold"><?php echo htmlspecialchars($game['title']); ?></h2>
             <p class="w-[240px] h-[360px] overflow-hidden">
                 <img src="uploads\gameCovers\<?= $game['cover']; ?>" alt="<?= $game['cover']; ?>"

@@ -1,14 +1,17 @@
 <?php
 require_once 'models/User.php';
 
-class AuthController {
+class AuthController
+{
     private $userModel;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->userModel = new User($pdo);
     }
 
-    public function login() {
+    public function login()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
             $password = $_POST['password'];
@@ -16,6 +19,7 @@ class AuthController {
             $user = $this->userModel->findByEmail($email);
             if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
                 header('Location: index.php?action=dashboard');
                 exit;
             }
@@ -23,7 +27,8 @@ class AuthController {
         require 'views/auth/login.php';
     }
 
-    public function register() {
+    public function register()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($this->userModel->findByUsername($_POST['username'])) {
                 die('ERRO: Nome de usuário já está em uso!');
@@ -38,7 +43,7 @@ class AuthController {
             $name = $_POST['name'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-            
+
             if ($this->userModel->create($username, $name, $email, $password)) {
                 header('Location: index.php?action=login');
                 exit;
@@ -47,9 +52,27 @@ class AuthController {
         require 'views/auth/register.php';
     }
 
-    public function logout() {
+    public function logout()
+    {
         session_destroy();
         header('Location: index.php?action=login');
     }
+
+    public function getProfile() {
+    $username = $_GET['user'] ?? null;
+
+    if (!$username) {
+        echo "Usuário não especificado.";
+        return;
+    }
+
+    $profile = $this->userModel->findByUsername($username);
+
+    if (!$profile) {
+        echo "Usuário não encontrado.";
+        return;
+    }
+
+    include 'views/users/profile.php';
 }
-?>
+}
