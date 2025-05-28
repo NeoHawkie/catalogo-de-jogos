@@ -58,21 +58,24 @@ class AuthController
         header('Location: index.php?action=login');
     }
 
-    public function getProfile() {
-    $username = $_GET['user'] ?? null;
+    public function getProfile()
+    {
+        $username = $_GET['user'] ?? null;
+        
+        if (!$username) {
+            echo "Usuário não especificado.";
+            return;
+        }
 
-    if (!$username) {
-        echo "Usuário não especificado.";
-        return;
+        $profile = $this->userModel->findByUsername($username);
+        unset($profile['password'], $profile[2]);
+        if (!$profile) {
+            echo "Usuário não encontrado.";
+            return;
+        }
+        
+        $isOwner = isset($_SESSION['user']) && $_SESSION['user']['username'] === $profile['username'];
+        $recentGame = $this->userModel->getRecentlyAddedByUser($profile['id']);
+        include 'views/users/profile.php';
     }
-
-    $profile = $this->userModel->findByUsername($username);
-
-    if (!$profile) {
-        echo "Usuário não encontrado.";
-        return;
-    }
-
-    include 'views/users/profile.php';
-}
 }

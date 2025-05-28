@@ -23,5 +23,12 @@ class User {
         $stmt = $this->db->prepare("INSERT INTO users (username, name, email, password) VALUES (?, ?, ?, ?)");
         return $stmt->execute([$username, $name, $email, $hash]);
     }
+
+    public function getRecentlyAddedByUser($user_id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM games WHERE user_id = ? ORDER BY id DESC LIMIT 1");
+        $stmt->execute([$user_id]);
+        return $stmt->fetch();
+    }
 }
 ?>

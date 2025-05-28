@@ -4,9 +4,9 @@
     <form action="index.php" method="GET" class="flex mb-2 py-2">
         <input type="hidden" name="action" value="dashboard">
         <input type="text" name="searchGame" placeholder="Pesquisar...">
-        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Go!</button>
+        <button type="submit" class="bg-green-700 text-white px-4 py-2 rounded">Go!</button>
     </form>
-    <a href="dashboard.php?action=add_game" class="bg-green-500 text-white px-4 py-2 rounded">Adicionar Jogo</a>
+    <a href="dashboard.php?action=add_game" class="bg-green-700 text-white px-4 py-2 rounded">Adicionar Jogo</a>
 </div>
 <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 "> 
     <?php foreach ($games as $game): ?>

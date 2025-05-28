@@ -1,10 +1,11 @@
 <?php
 require_once 'core/Database.php';
+
 if (!isset($_SESSION)) {
     session_start();
 }
 
-function dd(...$dump)
+function dd(...$dump) //função de teste
 {
     echo '<pre>';
     var_dump($dump);
@@ -12,8 +13,6 @@ function dd(...$dump)
 
     die();
 }
-
-//$rout = str_replace('/', '', parse_url($_SERVER['REQUEST_URI'])['path']);
 
 class Router
 {
