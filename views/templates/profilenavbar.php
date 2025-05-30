@@ -1,14 +1,12 @@
-<div class="flex justify-center">
-    <nav class="flex p-1 pl-8 pr-8 justify-self-center justify-between bg-blue-900 border-blue-500 
-    border-4 border-solid rounded-full h-full w-full max-w-4xl text-white">
-        <?php if ($_SESSION['user_id'] === $profile['id']): ?>
-            <a href=""> Editar perfil</a>
-        <?php else: ?>
-            <a href=""> Seguir</a>
-        <?php endif ?>
-        <a href=""> Buscar usuários</a>
-        <a href=""> Avaliações</a>
-        <a href=""> Seguidores</a>
-        <a href=""> Seguindo</a>
-    </nav>
-</div>
+<nav class="bg-gray-100 shadow-sm py-3 px-6 flex justify-between items-center">
+    <div class="text-lg font-semibold">Perfil</div>
+    
+    <?php if ($isOwner): ?>
+        <a href="index.php?action=edit_profile" class="text-green-600 hover:text-green-800 font-medium">Editar perfil</a>
+    <?php else: ?>
+        <form method="POST" action="index.php?action=follow_user">
+            <input type="hidden" name="user_to_follow" value="<?= htmlspecialchars($profile['username']) ?>">
+            <button type="submit" class="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600">Seguir</button>
+        </form>
+    <?php endif; ?>
+</nav>

@@ -61,7 +61,7 @@ class AuthController
     public function getProfile()
     {
         $username = $_GET['user'] ?? null;
-        
+
         if (!$username) {
             echo "Usuário não especificado.";
             return;
@@ -73,9 +73,34 @@ class AuthController
             echo "Usuário não encontrado.";
             return;
         }
-        
-        $isOwner = isset($_SESSION['user']) && $_SESSION['user']['username'] === $profile['username'];
+
+        $isOwner = isset($_SESSION['username']) && $_SESSION['username'] === $profile['username'];
         $recentGame = $this->userModel->getRecentlyAddedByUser($profile['id']);
         include 'views/users/profile.php';
+    }
+
+    public function editProfile()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $bio = trim($_POST['bio'] ?? '');
+            $pp = [];
+            if (strlen($_FILES['profile_picture']['name']) > 0) {
+                dd($_FILES);
+                $name = $_FILES['profile_picture']['name'];
+                $tmp_name = $_FILES['profile_picture']['tmp_name'];
+                $extension = pathinfo($name, PATHINFO_EXTENSION);
+                $pp = uniqid() . '.' . $extension;
+
+                if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
+                    move_uploaded_file($tmp_name, 'uploads/profilePictures' . $pp);
+                } else {
+                    die('Formato de arquivo inválido!');
+                }
+            }
+
+            $this->userModel->update($_SESSION['user_id'], $bio, $pp);
+            header("Location: index.php?action=profile&user=" . $_SESSION['username']);
+            exit;
+        }
     }
 }

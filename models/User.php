@@ -1,27 +1,39 @@
 <?php
-class User {
+class User
+{
     private $db;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->db = $pdo;
     }
 
-    public function findByUsername($username) {
+    public function findByUsername($username)
+    {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->execute([$username]);
         return $stmt->fetch();
     }
 
-    public function findByEmail($email) {
+    public function findByEmail($email)
+    {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         return $stmt->fetch();
     }
 
-    public function create($username, $name, $email, $password) {
+    public function create($username, $name, $email, $password)
+    {
         $hash = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $this->db->prepare("INSERT INTO users (username, name, email, password) VALUES (?, ?, ?, ?)");
         return $stmt->execute([$username, $name, $email, $hash]);
+    }
+
+    public function update($user_id, $bio = [], $profile_picture = [])
+    {
+        $stmt = $this->db->prepare("UPDATE users SET bio = ?, profile_picture = ? WHERE ID = ?");
+        $stmt->execute([$bio, $profile_picture, $user_id]);
+        return $stmt->fetch();
     }
 
     public function getRecentlyAddedByUser($user_id)
@@ -31,4 +43,3 @@ class User {
         return $stmt->fetch();
     }
 }
-?>
