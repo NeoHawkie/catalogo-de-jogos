@@ -31,9 +31,27 @@ class User
 
     public function update($user_id, $bio = [], $profile_picture = [])
     {
-        $stmt = $this->db->prepare("UPDATE users SET bio = ?, profile_picture = ? WHERE ID = ?");
-        $stmt->execute([$bio, $profile_picture, $user_id]);
+        if (!empty($profile_picture)) {
+            $stmt = $this->db->prepare("UPDATE users SET bio = ?, profile_picture = ? WHERE ID = ?");
+            return $stmt->execute([$bio, $profile_picture, $user_id]);
+        } else {
+            $stmt = $this->db->prepare("UPDATE users SET bio = ? WHERE ID = ?");
+            return $stmt->execute([$bio, $user_id]);
+        }
+    }
+
+    public function getUserProfilePicture($user_id) 
+    {
+        $stmt = $this->db->prepare("SELECT profile_picture FROM users WHERE id = ?");
+        $stmt->execute([$user_id]);
         return $stmt->fetch();
+    }
+    
+    public function deleteUserProfilePicture($user_id)
+    {
+        $stmt = $this->db->prepare("UPDATE users SET profile_picture=NULL WHERE id = ?");
+        return $stmt->execute([$user_id]);
+        
     }
 
     public function getRecentlyAddedByUser($user_id)

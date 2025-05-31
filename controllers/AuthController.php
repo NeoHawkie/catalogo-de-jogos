@@ -81,26 +81,36 @@ class AuthController
 
     public function editProfile()
     {
+        // dd($_SERVER);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $bio = trim($_POST['bio'] ?? '');
-            $pp = [];
+            // dd($_FILES);
             if (strlen($_FILES['profile_picture']['name']) > 0) {
-                dd($_FILES);
                 $name = $_FILES['profile_picture']['name'];
                 $tmp_name = $_FILES['profile_picture']['tmp_name'];
                 $extension = pathinfo($name, PATHINFO_EXTENSION);
                 $pp = uniqid() . '.' . $extension;
 
                 if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
-                    move_uploaded_file($tmp_name, 'uploads/profilePictures' . $pp);
+                    move_uploaded_file($tmp_name, 'uploads/profilePictures/' . $pp);
                 } else {
                     die('Formato de arquivo inválido!');
                 }
+                $this->userModel->update($_SESSION['user_id'], $bio, $pp);
+            } else {
+                $this->userModel->update($_SESSION['user_id'], $bio);
             }
-
-            $this->userModel->update($_SESSION['user_id'], $bio, $pp);
             header("Location: index.php?action=profile&user=" . $_SESSION['username']);
             exit;
         }
+    }
+
+    public function deleteProfilePicture()
+    {
+        $userProfilePicture = $this->userModel->getUserProfilePicture($_SESSION['user_id']);
+        unlink('uploads/profilePictures/' . $userProfilePicture["profile_picture"]);
+        $this->userModel->deleteUserProfilePicture($_SESSION['user_id']);
+        header("Location: index.php?action=profile&user=" . $_SESSION['username']);
+        exit;
     }
 }

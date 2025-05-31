@@ -43,6 +43,10 @@ class Router
                 require_once 'protected.php';
                 require_once 'controllers/AuthController.php';
                 (new AuthController($pdo))->editProfile();
+            case 'delete_profile_picture':
+                require_once 'protected.php';
+                require_once 'controllers/AuthController.php';
+                (new AuthController($pdo))->deleteProfilePicture();
             case 'dashboard':
                 require_once 'protected.php';
                 require_once 'controllers/GameController.php';
