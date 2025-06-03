@@ -40,18 +40,17 @@ class User
         }
     }
 
-    public function getUserProfilePicture($user_id) 
+    public function getUserProfilePicture($user_id)
     {
         $stmt = $this->db->prepare("SELECT profile_picture FROM users WHERE id = ?");
         $stmt->execute([$user_id]);
         return $stmt->fetch();
     }
-    
+
     public function deleteUserProfilePicture($user_id)
     {
         $stmt = $this->db->prepare("UPDATE users SET profile_picture=NULL WHERE id = ?");
         return $stmt->execute([$user_id]);
-        
     }
 
     public function getRecentlyAddedByUser($user_id)
@@ -59,5 +58,15 @@ class User
         $stmt = $this->db->prepare("SELECT * FROM games WHERE user_id = ? ORDER BY id DESC LIMIT 1");
         $stmt->execute([$user_id]);
         return $stmt->fetch();
+    }
+
+    public function searchByEmailOrLikeUsername($search)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM users 
+                                    WHERE username LIKE ?
+                                    OR email = ?
+                                    ORDER BY id DESC");
+        $stmt->execute([('%' . $search . '%'), $search]);
+        return $stmt->fetchAll();
     }
 }

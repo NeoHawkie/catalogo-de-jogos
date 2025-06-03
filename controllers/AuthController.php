@@ -78,6 +78,7 @@ class AuthController
         $recentGame = $this->userModel->getRecentlyAddedByUser($profile['id']);
         include 'views/users/profile.php';
     }
+    
 
     public function editProfile()
     {

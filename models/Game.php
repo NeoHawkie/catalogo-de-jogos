@@ -29,13 +29,21 @@ class Game
         return $stmt->fetch();
     }
 
-    public function searchByTitleOrPlatform($user_id, $searchGame)
+    public function searchGame($search)
     {
-        $stmt = $this->db->prepare("SELECT * FROM games
-                                    WHERE user_id = :user_id AND (title LIKE :searchGame OR platform LIKE :searchGame)");
+        $stmt = $this->db->prepare("SELECT * FROM games WHERE title LIKE :search ORDER BY id DESC");
         $stmt->execute([
-            'user_id' => $user_id,
-            'searchGame' => '%' . $searchGame . '%'
+            'search' => '%' . $search . '%'
+        ]);
+        return $stmt->fetchAll();
+    }
+
+    public function searchUserGamesByTitle($userId, $title)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM games WHERE user_id = :user_id AND title LIKE :title");
+        $stmt->execute([
+            'user_id' => $userId,
+            'title' => "%$title%"
         ]);
         return $stmt->fetchAll();
     }
