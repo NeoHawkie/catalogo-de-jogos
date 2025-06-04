@@ -1,7 +1,7 @@
 <?php
 require_once 'models/User.php';
 
-class AuthController
+class UserController
 {
     private $userModel;
 
@@ -78,7 +78,7 @@ class AuthController
         $recentGame = $this->userModel->getRecentlyAddedByUser($profile['id']);
         include 'views/users/profile.php';
     }
-    
+
 
     public function editProfile()
     {
@@ -112,6 +112,30 @@ class AuthController
         unlink('uploads/profilePictures/' . $userProfilePicture["profile_picture"]);
         $this->userModel->deleteUserProfilePicture($_SESSION['user_id']);
         header("Location: index.php?action=profile&user=" . $_SESSION['username']);
+        exit;
+    }
+
+    public function follow()
+    {
+        $followerId = $_SESSION['user_id'];
+        $followingId = $_GET['id'] ?? null;
+
+        if ($followingId && $followingId != $followerId) {
+            $this->userModel->followUser($followerId, $followingId);
+        }
+
+        header("Location: index.php?action=profile&user=" . $_GET['username']);
+        exit;
+    }
+
+    public function unfollow()
+    {
+        $followerId = $_SESSION['user_id'];
+        $followingId = $_GET['id'] ?? null;
+
+        $this->userModel->unfollowUser($followerId, $followingId);
+
+        header("Location: index.php?action=profile&user=" . $_GET['username']);
         exit;
     }
 }

@@ -69,4 +69,32 @@ class User
         $stmt->execute([('%' . $search . '%'), $search]);
         return $stmt->fetchAll();
     }
+
+    public function followUser($followerId, $followingId)
+    {
+        $stmt = $this->db->prepare("INSERT OR IGNORE INTO followers (follower_id, following_id) VALUES (:follower, :following)");
+        return $stmt->execute([
+            'follower' => $followerId,
+            'following' => $followingId
+        ]);
+    }
+
+    public function unfollowUser($followerId, $followingId)
+    {
+        $stmt = $this->db->prepare("DELETE FROM followers WHERE follower_id = :follower AND following_id = :following");
+        return $stmt->execute([
+            'follower' => $followerId,
+            'following' => $followingId
+        ]);
+    }
+
+    public function isFollowing($followerId, $followingId)
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM followers WHERE follower_id = :follower AND following_id = :following");
+        $stmt->execute([
+            'follower' => $followerId,
+            'following' => $followingId
+        ]);
+        return $stmt->fetchColumn() > 0;
+    }
 }

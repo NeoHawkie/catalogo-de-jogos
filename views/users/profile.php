@@ -1,4 +1,4 @@
-<?php //include 'views/templates/profilenavbar.php'; 
+<?php 
 ?>
 
 <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
@@ -17,6 +17,16 @@
                 <span class="mr-4"><strong>0</strong> seguidores</span>
                 <span><strong>0</strong> seguindo</span>
             </div>
+            <?php if ($_SESSION['user_id'] !== $profile['id']): ?>
+                <?php if ():
+                    //<?php if ($userModel->isFollowing($_SESSION['user']['id'], $profile['id'])): ?>
+
+                    <a href="index.php?action=unfollow&id=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>" class="bg-red-500 text-white px-4 py-2 rounded">Deixar de seguir</a>
+                <?php else: ?>
+                    <a href="index.php?action=follow&id=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>" class="bg-blue-500 text-white px-4 py-2 rounded">Seguir</a>
+                <?php endif; ?>
+            <?php endif; ?>
+
         </div>
     </div>
 

@@ -23,30 +23,30 @@ class Router
 
         switch ($action) {
             case 'login':
-                require_once 'controllers/AuthController.php';
-                (new AuthController($pdo))->login();
+                require_once 'controllers/UserController.php';
+                (new UserController($pdo))->login();
                 break;
             case 'register':
-                require_once 'controllers/AuthController.php';
-                (new AuthController($pdo))->register();
+                require_once 'controllers/UserController.php';
+                (new UserController($pdo))->register();
                 break;
             case 'logout':
-                require_once 'controllers/AuthController.php';
-                (new AuthController($pdo))->logout();
+                require_once 'controllers/UserController.php';
+                (new UserController($pdo))->logout();
                 break;
             case 'profile':
                 require_once 'protected.php';
-                require_once 'controllers/AuthController.php';
-                (new AuthController($pdo))->getProfile();
+                require_once 'controllers/UserController.php';
+                (new UserController($pdo))->getProfile();
                 break;
             case 'edit_profile':
                 require_once 'protected.php';
-                require_once 'controllers/AuthController.php';
-                (new AuthController($pdo))->editProfile();
+                require_once 'controllers/UserController.php';
+                (new UserController($pdo))->editProfile();
             case 'delete_profile_picture':
                 require_once 'protected.php';
-                require_once 'controllers/AuthController.php';
-                (new AuthController($pdo))->deleteProfilePicture();
+                require_once 'controllers/UserController.php';
+                (new UserController($pdo))->deleteProfilePicture();
 // -------------------------------------------------------------------------------------
             case 'search':
                 require_once 'controllers/SearchController.php';
