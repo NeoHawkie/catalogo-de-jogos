@@ -1,4 +1,4 @@
-<?php 
+<?php
 ?>
 
 <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
@@ -14,16 +14,16 @@
             <h2 class="text-2xl font-bold"><?= htmlspecialchars($profile['username']) ?></h2>
             <p class="text-gray-600"><?= htmlspecialchars($profile['email']) ?></p>
             <div class="mt-2 text-sm text-gray-500">
-                <span class="mr-4"><strong>0</strong> seguidores</span>
-                <span><strong>0</strong> seguindo</span>
+                <a href="index.php?action=show_followers&username=<?=$profile['username'] ?>" class="mr-4"><strong>0</strong> seguidores</a>
+                <a href="index.php?action=show_following&username=<?=$profile['username'] ?>"><strong>0</strong> seguindo</a>
             </div>
             <?php if ($_SESSION['user_id'] !== $profile['id']): ?>
-                <?php if ():
-                    //<?php if ($userModel->isFollowing($_SESSION['user']['id'], $profile['id'])): ?>
-
-                    <a href="index.php?action=unfollow&id=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>" class="bg-red-500 text-white px-4 py-2 rounded">Deixar de seguir</a>
+                <?php if ($isFollowing) : ?>
+                    <a href="index.php?action=unfollow&id=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>"
+                        class="bg-red-500 text-white px-3 rounded">Deixar de seguir</a>
                 <?php else: ?>
-                    <a href="index.php?action=follow&id=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>" class="bg-blue-500 text-white px-4 py-2 rounded">Seguir</a>
+                    <a href="index.php?action=follow&id=<?= $profile['id'] ?>&username=<?= $profile['username'] ?>"
+                        class="bg-blue-500 text-white px-3 rounded">Seguir</a>
                 <?php endif; ?>
             <?php endif; ?>
 
@@ -38,7 +38,7 @@
                 <div class="max-w-sm">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Alterar foto de perfil</label>
                     <input type="file" name="profile_picture" class="w-full text-sm text-gray-500 file:bg-green-600
-                    file:text-white file:px-3 file:py-1 file:rounded file:hover:bg-green-700">
+                    file:text-white file:px-3 file:py-1 file:rounded file:hover:bg-green-700 file:placeholder">
                 </div>
                 <div class="place-content-end px-4 py-1">
                     <a href="index.php?action=delete_profile_picture" class="bg-red-600 text-white px-3 py-1

@@ -74,6 +74,9 @@ class UserController
             return;
         }
 
+        $loggedUser = $_SESSION['user_id'];
+
+        $isFollowing = $this->userModel->isFollowing($loggedUser, $profile['id']);
         $isOwner = isset($_SESSION['username']) && $_SESSION['username'] === $profile['username'];
         $recentGame = $this->userModel->getRecentlyAddedByUser($profile['id']);
         include 'views/users/profile.php';
@@ -137,5 +140,26 @@ class UserController
 
         header("Location: index.php?action=profile&user=" . $_GET['username']);
         exit;
+    }
+
+    public function showFollowers()
+    {
+        $username = $_GET['username'];
+        $followersId = $this->userModel->getFollowers($username);
+
+        $followers = [];
+        foreach ($followersId as $follower)
+        {
+            $followers[] = $this->userModel->getUserById($follower['following_id']);
+        }
+        // dd($followers);
+
+        include 'views/users/followers.php';
+        exit;
+    }
+
+    public function showFollowing()
+    {
+
     }
 }

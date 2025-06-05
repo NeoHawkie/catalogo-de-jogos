@@ -8,6 +8,13 @@ class User
         $this->db = $pdo;
     }
 
+    public function getUserById($user_id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->execute([$user_id]);
+        return $stmt->fetch();
+    }
+
     public function findByUsername($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE username = ?");
@@ -96,5 +103,15 @@ class User
             'following' => $followingId
         ]);
         return $stmt->fetchColumn() > 0;
+    }
+
+    public function getFollowers($username)
+    {
+        $user = $this->findByUsername($username);
+        $userId = $user['id'];
+        unset($user);
+        $stmt = $this->db->prepare("SELECT * FROM followers WHERE follower_id = ?");
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll();
     }
 }

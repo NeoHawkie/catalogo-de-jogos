@@ -74,6 +74,5 @@ $query = htmlspecialchars($_GET['q'] ?? '');
     <?php endif; ?>
 </div>
 
-<?php include 'views/templates/footer.php'; 
-exit?>
+<?php include 'views/templates/footer.php';?>
 

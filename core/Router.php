@@ -43,14 +43,37 @@ class Router
                 require_once 'protected.php';
                 require_once 'controllers/UserController.php';
                 (new UserController($pdo))->editProfile();
+                break;
             case 'delete_profile_picture':
                 require_once 'protected.php';
                 require_once 'controllers/UserController.php';
                 (new UserController($pdo))->deleteProfilePicture();
+                break;
+            case 'follow':
+                require_once 'protected.php';
+                require_once 'controllers/UserController.php';
+                (new UserController($pdo))->follow();
+                break;
+            case 'unfollow':
+                require_once 'protected.php';
+                require_once 'controllers/UserController.php';
+                (new UserController($pdo))->unfollow();
+                break;
+            case 'show_followers':
+                require_once 'protected.php';
+                require_once 'controllers/UserController.php';
+                (new UserController($pdo))->showFollowers();
+                break;
+            case 'show_following':
+                require_once 'protected.php';
+                require_once 'controllers/UserController.php';
+                (new UserController($pdo))->showFollowing();
+                break;
 // -------------------------------------------------------------------------------------
             case 'search':
                 require_once 'controllers/SearchController.php';
                 (new SearchController(($pdo))->search());
+                break;
 // -------------------------------------------------------------------------------------
             case 'dashboard':
                 require_once 'protected.php';
