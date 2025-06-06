@@ -75,7 +75,8 @@ class UserController
         }
 
         $loggedUser = $_SESSION['user_id'];
-
+        $followerCount = ($this->userModel->getFollowersCountByUsername($username))['COUNT(*)'];
+        $followingCount = ($this->userModel->getFollowingCountByUsername($username))['COUNT(*)'];
         $isFollowing = $this->userModel->isFollowing($loggedUser, $profile['id']);
         $isOwner = isset($_SESSION['username']) && $_SESSION['username'] === $profile['username'];
         $recentGame = $this->userModel->getRecentlyAddedByUser($profile['id']);
@@ -142,24 +143,30 @@ class UserController
         exit;
     }
 
-    public function showFollowers()
+    public function showFollowing()
     {
         $username = $_GET['username'];
-        $followersId = $this->userModel->getFollowers($username);
-
-        $followers = [];
-        foreach ($followersId as $follower)
-        {
-            $followers[] = $this->userModel->getUserById($follower['following_id']);
+        $followingId = $this->userModel->getFollowingByUsername($username);
+        $profiles = [];
+        foreach ($followingId as $profile) {
+            $profiles[] = $this->userModel->getUserById($profile['following_id']);
         }
-        // dd($followers);
 
-        include 'views/users/followers.php';
+        include 'views/users/following.php';
         exit;
     }
 
-    public function showFollowing()
+    public function showFollowers()
     {
+        $username = $_GET['username'];
+        $followerId = $this->userModel->getFollowersByUsername($username);
+        // dd($followerId);
+        $profiles = [];
+        foreach ($followerId as $profile) {
+            $profiles[] = $this->userModel->getUserById($profile['follower_id']);
+        }
 
+        include 'views/users/following.php';
+        exit;
     }
 }

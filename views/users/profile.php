@@ -14,8 +14,8 @@
             <h2 class="text-2xl font-bold"><?= htmlspecialchars($profile['username']) ?></h2>
             <p class="text-gray-600"><?= htmlspecialchars($profile['email']) ?></p>
             <div class="mt-2 text-sm text-gray-500">
-                <a href="index.php?action=show_followers&username=<?=$profile['username'] ?>" class="mr-4"><strong>0</strong> seguidores</a>
-                <a href="index.php?action=show_following&username=<?=$profile['username'] ?>"><strong>0</strong> seguindo</a>
+                <a href="index.php?action=show_followers&username=<?=$profile['username'] ?>" class="mr-4"><strong><?=$followerCount?></strong> seguidores</a>
+                <a href="index.php?action=show_following&username=<?=$profile['username'] ?>"><strong><?=$followingCount?></strong> seguindo</a>
             </div>
             <?php if ($_SESSION['user_id'] !== $profile['id']): ?>
                 <?php if ($isFollowing) : ?>

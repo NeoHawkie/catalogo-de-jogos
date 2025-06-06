@@ -105,13 +105,35 @@ class User
         return $stmt->fetchColumn() > 0;
     }
 
-    public function getFollowers($username)
+    public function getFollowingByUsername($username)
     {
-        $user = $this->findByUsername($username);
-        $userId = $user['id'];
-        unset($user);
+        $userId = $this->findByUsername($username)['id'];
         $stmt = $this->db->prepare("SELECT * FROM followers WHERE follower_id = ?");
         $stmt->execute([$userId]);
         return $stmt->fetchAll();
+    }
+
+    public function getFollowersByUsername($username)
+    {
+        $userId = $this->findByUsername($username)['id'];
+        $stmt = $this->db->prepare("SELECT * FROM followers WHERE following_id = ?");
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll();
+    }
+
+    public function getFollowingCountByUsername($username)
+    {
+        $userId = $this->findByUsername($username)['id'];
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM followers WHERE follower_id = ?");
+        $stmt->execute([$userId]);
+        return $stmt->fetch();
+    }
+
+    public function getFollowersCountByUsername($username)
+    {
+        $userId = $this->findByUsername($username)['id'];
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM followers WHERE following_id = ?");
+        $stmt->execute([$userId]);
+        return $stmt->fetch();
     }
 }
