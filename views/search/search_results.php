@@ -28,7 +28,13 @@ $query = htmlspecialchars($_GET['q'] ?? '');
                     <div class="p-4 bg-white border rounded shadow">
                         <h3 class="text-lg font-bold"><?= htmlspecialchars($game['title']) ?></h3>
                         <p class="text-sm text-gray-600"><?= htmlspecialchars($game['platform']) ?></p>
-                        <a href="index.php?action=view_game&id=<?= $game['id'] ?>" class="text-green-600 text-sm">Ver jogo</a>
+                        <a href="index.php?action=view_game&id=<?= $game['id'] ?>">
+                            <div class="flex justify-center">
+                                <img src="uploads/gameCovers/<?= $game['cover'] ?>" alt="Capa do jogo"
+                                    class="w-24 h-24 object-cover rounded"
+                                    onerror="this.src='uploads/gameCovers/defaultCover.jpg'">
+                            </div>
+                        </a>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -42,10 +48,13 @@ $query = htmlspecialchars($_GET['q'] ?? '');
         <?php if (!empty($users)): ?>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <?php foreach (array_slice($users, $offset, $limit) as $user): ?>
-                    <div class="p-4 bg-white border rounded shadow">
-                        <h3 class="text-lg font-bold"><?= htmlspecialchars($user['username']) ?></h3>
-                        <p class="text-sm text-gray-600"><?= htmlspecialchars($user['email']) ?></p>
-                        <a href="index.php?action=profile&user=<?= urlencode($user['username']) ?>" class="text-green-600 text-sm">Ver perfil</a>
+                    <div class="flex p-4 bg-white border rounded shadow">
+                        <img src="uploads/profilePictures/<?= $user['profile_picture'] ?? 'defaultProfilePicture.jpg' ?>" alt="Avatar" class="align-middle w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h3 class="text-lg font-bold"><?= htmlspecialchars($user['username']) ?></h3>
+                            <p class="text-sm text-gray-600"><?= htmlspecialchars($user['email']) ?></p>
+                            <a href="index.php?action=profile&user=<?= urlencode($user['username']) ?>" class="text-green-600 text-sm">Ver perfil</a>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -57,8 +66,8 @@ $query = htmlspecialchars($_GET['q'] ?? '');
     <!-- Paginação -->
     <?php
     $totalResults = ($filter === 'games') ? count($games)
-                  : (($filter === 'users') ? count($users)
-                  : (count($games) + count($users)));
+        : (($filter === 'users') ? count($users)
+            : (count($games) + count($users)));
 
     $totalPages = ceil($totalResults / $limit);
     ?>
@@ -66,7 +75,7 @@ $query = htmlspecialchars($_GET['q'] ?? '');
         <div class="mt-8 flex justify-center space-x-2">
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                 <a href="index.php?action=search&q=<?= urlencode($query) ?>&filter=<?= $filter ?>&page=<?= $i ?>"
-                   class="px-3 py-1 rounded border <?= $page == $i ? 'bg-green-600 text-white' : 'bg-gray-100' ?>">
+                    class="px-3 py-1 rounded border <?= $page == $i ? 'bg-green-600 text-white' : 'bg-gray-100' ?>">
                     <?= $i ?>
                 </a>
             <?php endfor; ?>
@@ -74,5 +83,4 @@ $query = htmlspecialchars($_GET['q'] ?? '');
     <?php endif; ?>
 </div>
 
-<?php include 'views/templates/footer.php';?>
-
+<?php include 'views/templates/footer.php'; ?>

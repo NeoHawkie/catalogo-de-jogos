@@ -95,8 +95,12 @@ class Router
                 require_once 'controllers/GameController.php';
                 (new GameController($pdo))->deleteGame();
                 break;
+            case 'view_game':
+                require_once 'views\errors\503.php';
+                break;
             default:
-                echo "404 - Página não encontrada.";
+                require_once 'views\errors\404.php';
+                break;
         }
     }
 }

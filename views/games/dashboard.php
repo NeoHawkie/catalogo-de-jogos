@@ -15,11 +15,13 @@
 <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
     <?php foreach ($games as $game): ?>
         <div class="justify-self-center bg-white w-[275px] p-4 shadow rounded">
-            <h2 class="text-xl font-bold"><?php echo htmlspecialchars($game['title']); ?></h2>
+            <a href="index.php?action=view_game&id=<?= $game['id'] ?>">
+                <h2 class="text-xl font-bold"><?php echo htmlspecialchars($game['title']); ?></h2>
+            </a>
             <p class="w-[240px] h-[360px] overflow-hidden">
-                <img src="uploads\gameCovers\<?= $game['cover']; ?>" alt="<?= $game['cover']; ?>"
-                    class="w-full h-full object-cover"
-                    onerror="this.src='uploads/gameCovers/defaultCover.jpg'">
+                <a href="index.php?action=view_game&id=<?= $game['id'] ?>"><img src="uploads\gameCovers\<?= $game['cover']; ?>" alt="<?= $game['cover']; ?>"
+                        class="w-full h-full object-cover"
+                        onerror="this.src='uploads/gameCovers/defaultCover.jpg'"></a>
             </p>
             <p class="text-gray-600"><?php echo htmlspecialchars($game['platform']); ?></p>
             <p class="text-gray-500 text-sm mt-2"><?= $game['description']; ?></p>

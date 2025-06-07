@@ -14,8 +14,8 @@
             <h2 class="text-2xl font-bold"><?= htmlspecialchars($profile['username']) ?></h2>
             <p class="text-gray-600"><?= htmlspecialchars($profile['email']) ?></p>
             <div class="mt-2 text-sm text-gray-500">
-                <a href="index.php?action=show_followers&username=<?=$profile['username'] ?>" class="mr-4"><strong><?=$followerCount?></strong> seguidores</a>
-                <a href="index.php?action=show_following&username=<?=$profile['username'] ?>"><strong><?=$followingCount?></strong> seguindo</a>
+                <a href="index.php?action=show_followers&username=<?= $profile['username'] ?>" class="mr-4"><strong><?= $followerCount ?></strong> seguidores</a>
+                <a href="index.php?action=show_following&username=<?= $profile['username'] ?>"><strong><?= $followingCount ?></strong> seguindo</a>
             </div>
             <?php if ($_SESSION['user_id'] !== $profile['id']): ?>
                 <?php if ($isFollowing) : ?>
@@ -66,10 +66,14 @@
         <h3 class="text-lg font-semibold text-gray-700 mb-2">Jogo mais recente</h3>
         <div class="flex items-center space-x-4">
             <?php if ($recentGame) : ?>
-                <img src="uploads/gameCovers/<?= $recentGame['cover'] ?>" alt="Capa do jogo"
-                    class="w-24 h-24 object-cover rounded"
-                    onerror="this.src='uploads/gameCovers/defaultCover.jpg'">
-                <span class="text-md font-medium"><?= htmlspecialchars($recentGame['title']) ?></span>
+                <a href="index.php?action=view_game&id=<?= $recentGame['id'] ?>">
+                    <img src="uploads/gameCovers/<?= $recentGame['cover'] ?>" alt="Capa do jogo"
+                        class="w-24 h-24 object-cover rounded"
+                        onerror="this.src='uploads/gameCovers/defaultCover.jpg'">
+                </a>
+                <a href="index.php?action=view_game&id=<?= $recentGame['id'] ?>">
+                    <span class="text-md font-medium"><?= htmlspecialchars($recentGame['title']) ?></span>
+                </a>
             <?php else : ?>
                 <p class="text-gray-600">Nenhum jogo adicionado recentemente...</p>
             <?php endif ?>
@@ -78,8 +82,8 @@
     </div>
 
     <!-- Comentários de outros usuários sobre o perfil -->
-    <div class="mt-6">
+    <!-- <div class="mt-6">
         <h3 class="text-lg font-semibold text-gray-700 mb-1">Comentários</h3>
         <p class="text-gray-600">WIP</p>
-    </div>
+    </div> -->
 </div>
