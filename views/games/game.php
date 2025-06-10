@@ -2,7 +2,7 @@
 
 <div class="max-w-4xl mx-auto py-8">
     <!-- Título do Jogo -->
-    <h1 class="text-3xl font-bold mb-4"><?=$game['title'] ?></h1>
+    <h1 class="text-3xl font-bold mb-4"><?= $game['title'] ?></h1>
 
     <!-- Imagem e Detalhes -->
     <div class="flex flex-col md:flex-row gap-6">
@@ -57,7 +57,15 @@
                 <?php foreach ($comments as $comment): ?>
                     <li class="bg-white p-4 rounded shadow">
                         <p class="text-sm text-gray-800"><?= nl2br($comment['content']) ?></p>
-                        <p class="text-xs text-gray-500 mt-1">por <strong><?=$comment['username'] ?></strong></p>
+                        <div class="flex justify-end">
+                            <?php if ($comment['username'] === $_SESSION['username']) : ?>
+                                <a class="w-[20px] h-[20px] overflow-hidden" href="index.php?action=delete_comment&id=<?=$comment['id']?>&gameId=<?=$game['id']?>">
+                                    <img class="w-full h-full object-cover" src="assets/trash_icon.png" alt="Excluir"></a>
+                            <?php endif; ?>
+                            <p class="text-xs text-gray-500 mt-1 px-2">por <strong><?= $comment['username'] ?></strong></p>
+                        </div>
+
+
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -70,8 +78,9 @@
     <?php if (isset($_SESSION['user_id'])): ?>
         <form action="index.php?action=add_comment" method="POST" class="space-y-2 mt-4">
             <input type="hidden" name="gameId" value="<?= $game['id'] ?>">
-            <label for="comment" class="block font-semibold">Adicionar Comentário:</label>
-            <textarea name="comment" id="comment" rows="3" required class="w-full border rounded px-3 py-2"></textarea>
+            <input type="hidden" name="username" value="<?= $_SESSION['username'] ?>">
+            <label for="content" class="block font-semibold">Adicionar Comentário:</label>
+            <textarea name="content" rows="3" required class="w-full border rounded px-3 py-2"></textarea>
             <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Comentar</button>
         </form>
     <?php else: ?>

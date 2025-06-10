@@ -117,19 +117,33 @@ class GameController
 
         $reviews = $this->gameModel->getReviewsById($gameId);
         $reviewsCount = $this->gameModel->getReviewsCountById($gameId)['COUNT(*)'];
-        $comments = $this->gameModel->getCommentsById($gameId);
+        $comments = $this->gameModel->getCommentsBygameId($gameId);
 
         require 'views/games/game.php';
-
     }
 
-    public function rateGame()
-    {
-        
-    }
+    public function rateGame() {}
 
     public function addComment()
     {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+            $gameId = $_POST['gameId'];
+            $username = $_POST['username'];
+            $content = $_POST['content'];
+            $this->gameModel->createComment($gameId, $username, $content);
+            header('Location: index.php?action=view_game&id=' . $gameId);
+        }
+    }
 
+    public function deleteComment()
+    {
+        if (isset($_GET['id']) && isset($_GET['gameId'])) {
+            $commentId = $_GET['id'];
+            $gameId = $_GET['gameId'];
+            
+            $this->gameModel->deleteComment($commentId);
+            header('Location: index.php?action=view_game&id='.$gameId);
+        }
     }
 }

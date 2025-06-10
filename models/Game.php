@@ -94,7 +94,19 @@ class Game
         return $stmt->fetch();
     }
 
-    public function getCommentsById($gameId)
+    public function createComment($gameId, $username, $content)
+    {
+        $stmt = $this->db->prepare("INSERT INTO game_comments (game_id, username, content) VALUES (?, ?, ?)");
+        return $stmt->execute([$gameId, $username, $content]);
+    }
+
+    public function deleteComment($id)
+    {
+         $stmt = $this->db->prepare("DELETE FROM game_comments WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
+
+    public function getCommentsBygameId($gameId)
     {
         $stmt = $this->db->prepare("SELECT * FROM game_comments WHERE game_id = ?");
         $stmt->execute([$gameId]);
