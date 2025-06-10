@@ -25,9 +25,7 @@ $query = htmlspecialchars($_GET['q'] ?? '');
         <?php if (!empty($games)): ?>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 <?php foreach (array_slice($games, $offset, $limit) as $game): ?>
-                    <div class="p-4 bg-white border rounded shadow">
-                        <h3 class="text-lg font-bold"><?= htmlspecialchars($game['title']) ?></h3>
-                        <p class="text-sm text-gray-600"><?= htmlspecialchars($game['platform']) ?></p>
+                    <div class="p-4 bg-white border rounded shadow flex">
                         <a href="index.php?action=view_game&id=<?= $game['id'] ?>">
                             <div class="flex justify-center">
                                 <img src="uploads/gameCovers/<?= $game['cover'] ?>" alt="Capa do jogo"
@@ -35,6 +33,10 @@ $query = htmlspecialchars($_GET['q'] ?? '');
                                     onerror="this.src='uploads/gameCovers/defaultCover.jpg'">
                             </div>
                         </a>
+                        <div>
+                            <h3 class="px-1 text-lg font-bold"><?= htmlspecialchars($game['title']) ?></h3>
+                            <p class="px-1 text-sm text-gray-600"><?= htmlspecialchars($game['platform']) ?></p>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>

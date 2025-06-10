@@ -22,6 +22,13 @@ class Game
         return $stmt->fetch();
     }
 
+    public function getUsernameById($userId)
+    {
+        $stmt = $this->db->prepare("SELECT username FROM users WHERE id = ?");
+        $stmt->execute([$userId]);
+        return $stmt->fetch();
+    }
+
     public function getGameCoverById($game_id)
     {
         $stmt = $this->db->prepare("SELECT cover FROM games WHERE id = ?");
@@ -71,5 +78,26 @@ class Game
 
         $stmt = $this->db->prepare("DELETE FROM games WHERE id = ? AND user_id = ?");
         return $stmt->execute([$id, $user_id]);
+    }
+
+    public function getReviewsById($gameId)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM game_ratings WHERE game_id = ?");
+        $stmt->execute([$gameId]);
+        return $stmt->fetchAll();
+    }
+
+    public function getReviewsCountById($gameId)
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM game_ratings WHERE game_id = ?");
+        $stmt->execute([$gameId]);
+        return $stmt->fetch();
+    }
+
+    public function getCommentsById($gameId)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM game_comments WHERE game_id = ?");
+        $stmt->execute([$gameId]);
+        return $stmt->fetchAll();
     }
 }

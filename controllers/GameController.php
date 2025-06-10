@@ -106,4 +106,30 @@ class GameController
             header('Location: index.php?action=dashboard');
         }
     }
+
+    public function viewGame()
+    {
+        $gameId = $_GET['id'];
+        $game = $this->gameModel->getGameById($gameId);
+
+        $userId = $game['user_id'];
+        $addedBy = $this->gameModel->getUsernameById($userId)['username'];
+
+        $reviews = $this->gameModel->getReviewsById($gameId);
+        $reviewsCount = $this->gameModel->getReviewsCountById($gameId)['COUNT(*)'];
+        $comments = $this->gameModel->getCommentsById($gameId);
+
+        require 'views/games/game.php';
+
+    }
+
+    public function rateGame()
+    {
+        
+    }
+
+    public function addComment()
+    {
+
+    }
 }

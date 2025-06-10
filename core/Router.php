@@ -69,12 +69,12 @@ class Router
                 require_once 'controllers/UserController.php';
                 (new UserController($pdo))->showFollowing();
                 break;
-// -------------------------------------------------------------------------------------
+            // -------------------------------------------------------------------------------------
             case 'search':
                 require_once 'controllers/SearchController.php';
                 (new SearchController(($pdo))->search());
                 break;
-// -------------------------------------------------------------------------------------
+            // -------------------------------------------------------------------------------------
             case 'dashboard':
                 require_once 'protected.php';
                 require_once 'controllers/GameController.php';
@@ -96,7 +96,14 @@ class Router
                 (new GameController($pdo))->deleteGame();
                 break;
             case 'view_game':
-                require_once 'views\errors\503.php';
+                require_once 'controllers/GameController.php';
+                (new GameController($pdo))->viewGame();
+                break;
+            case 'add_comment':
+                // require_once 'views\errors\503.php';
+                require_once 'protected.php';
+                require_once 'controllers/GameController.php';
+                (new GameController($pdo))->addComment();
                 break;
             default:
                 require_once 'views\errors\404.php';
